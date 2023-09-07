@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Tebak Angka</title>
+</head>
+<body>
+    <h1>Selamat Datang di Game Tebak Angka!</h1>
+    <p>Saya memikirkan angka antara 1 dan 100. Cobalah tebak angkanya!</p>
+    <form method="post">
+        <input type="text" name="tebakan" placeholder="Masukkan tebakan Anda">
+        <input type="submit" name="cek" value="Cek">
+    </form>
+    <p><?php echo tebakAngka(); ?></p>
+
+    <?php
+    function tebakAngka() {
+        $angkaRandom = rand(1, 100);
+
+        if (isset($_POST['cek'])) {
+            $tebakan = $_POST['tebakan'];
+
+            if (!is_numeric($tebakan) || $tebakan < 1 || $tebakan > 100) {
+                return "Masukkan angka antara 1 dan 100!";
+            } elseif ($tebakan == $angkaRandom) {
+                return "Selamat! Anda berhasil menebak angka yang benar!";
+            } elseif ($tebakan < $angkaRandom) {
+                return "Tebakan Anda terlalu rendah. Coba lagi!";
+            } else {
+                return "Tebakan Anda terlalu tinggi. Coba lagi!";
+            }
+        }
+
+        return "";
+    }
+    ?>
+</body>
+</html>

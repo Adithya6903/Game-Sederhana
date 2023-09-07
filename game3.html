@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tembak-Tembakan Sederhana</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    background-color: #ddd;
+}
+
+.shooter {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bullet {
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    background-color: #e74c3c;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.target {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #27ae60;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="shooter"></div>
+        <div class="bullet"></div>
+        <div class="target"></div>
+        <div class="obstacle"></div> <!-- Tambahkan baris ini -->
+    </div>    
+    <script>
+      const shooter = document.querySelector('.shooter');
+const bullet = document.querySelector('.bullet');
+const target = document.querySelector('.target');
+
+let isFiring = false;
+
+shooter.addEventListener('click', () => {
+    if (!isFiring) {
+        isFiring = true;
+        bullet.style.display = 'block';
+        let bulletPosition = 70;
+        const bulletInterval = setInterval(() => {
+            bulletPosition += 10;
+            bullet.style.bottom = `${bulletPosition}px`;
+
+            if (bulletPosition >= 300) {
+                clearInterval(bulletInterval);
+                bullet.style.display = 'none';
+                bullet.style.bottom = '70px';
+                isFiring = false;
+                checkHit();
+            }
+        }, 20);
+    }
+});
+
+function checkHit() {
+    const shooterPosition = shooter.getBoundingClientRect();
+    const targetPosition = target.getBoundingClientRect();
+
+    if (
+        bullet.style.display === 'none' &&
+        shooterPosition.left < targetPosition.right &&
+        shooterPosition.right > targetPosition.left
+    ) {
+        alert('Anda berhasil menembak target!');
+    }
+}
+
+function checkHit() {
+    const shooterPosition = shooter.getBoundingClientRect();
+    const targetPosition = target.getBoundingClientRect();
+    const obstaclePosition = obstacle.getBoundingClientRect();
+
+    if (
+        bullet.style.display === 'none' &&
+        shooterPosition.left < targetPosition.right &&
+        shooterPosition.right > targetPosition.left
+    ) {
+        alert('Anda berhasil menembak target!');
+    }
+
+    // Check collision with obstacle
+    if (
+        shooterPosition.left < obstaclePosition.right &&
+        shooterPosition.right > obstaclePosition.left &&
+        shooterPosition.bottom > obstaclePosition.top
+    ) {
+        alert('Anda menabrak rintangan!');
+    }
+}
+
+    </script>
+</body>
+</html>

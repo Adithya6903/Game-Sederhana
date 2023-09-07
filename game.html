@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Tebak Angka</title>
+</head>
+<body>
+    <h1>Selamat Datang di Game Tebak Angka!</h1>
+    <p>Saya memikirkan angka antara 1 dan 100. Cobalah tebak angkanya!</p>
+    <input type="text" id="tebakan" placeholder="Masukkan tebakan Anda">
+    <button onclick="cekTebakan()">Cek</button>
+    <p id="hasil"></p>
+
+    <script>
+        // Fungsi untuk menghasilkan angka acak antara 1 dan 100
+        const angkaRandom = Math.floor(Math.random() * 100) + 1;
+
+        function cekTebakan() {
+            const tebakan = parseInt(document.getElementById("tebakan").value);
+            const hasil = document.getElementById("hasil");
+
+            if (isNaN(tebakan) || tebakan < 1 || tebakan > 100) {
+                hasil.innerHTML = "Masukkan angka antara 1 dan 100!";
+            } else if (tebakan === angkaRandom) {
+                hasil.innerHTML = "Selamat! Anda berhasil menebak angka yang benar!";
+            } else if (tebakan < angkaRandom) {
+                hasil.innerHTML = "Tebakan Anda terlalu rendah. Coba lagi!";
+            } else {
+                hasil.innerHTML = "Tebakan Anda terlalu tinggi. Coba lagi!";
+            }
+        }
+    </script>
+</body>
+</html>
